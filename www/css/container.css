@@ -1,0 +1,27 @@
+#mainTabs{
+    border-bottom: 0px;
+   top:0px;
+}
+#mainTabs > li{
+    height: 40px;
+}
+#mainTabs > li >a{
+    line-height: 24px;
+    border-left-width: 0px;
+    border-top-width: 0px;
+    border-bottom-width: 0px;
+    border-right-width: 2px;
+    margin-left: 1px;
+    margin-top: 1px;
+    padding-right: 5px;
+}
+#mainTabs > li >a > .fa-times{
+    color: #E09E96;
+    cursor: pointer;
+}
+.tab-content{
+    border: 0px;
+}
+#mainContent{
+    padding: 0px;
+}
