@@ -43,7 +43,7 @@ class Greeter extends Component{
 
   render() {
     return (
-      <div style={{height:300}}>
+      <div style={{height:1200}}>
        <input  value={this.state.A} onChange={this.handlerClickA} />
        +
        <input  value={this.state.B} onChange={this.handlerClickB} />

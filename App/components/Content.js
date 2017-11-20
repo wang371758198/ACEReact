@@ -16,7 +16,7 @@ class Content extends Component {
   }
   render() {
     return (
-      <div id={this.state.Key} className="tab-pane fade">
+      <div id={this.state.Key} className="tab-pane fade in active">
        <iframe id={'iframe'+this.state.Key} src="/Greeter" style={{border:0}} width="100%"  />
       </div>
     );

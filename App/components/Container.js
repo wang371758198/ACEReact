@@ -8,13 +8,9 @@ class Container extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      items: [
-        {
-          Key: "aaa",
-          Title: "标题名称",
-          Uri: "./../pages/About.js"
-        }
-      ]
+      Key: "aaaa",
+      Title: "工作台",
+      Uri: null
     };
   }
 
@@ -25,40 +21,21 @@ class Container extends Component {
           <div className="breadcrumbs ace-save-state" id="breadcrumbs">
             <ul className="nav nav-tabs" id="mainTabs">
               <li className="active">
-                <a data-toggle="tab" href="#home">
+                <a data-toggle="tab" href={"#" + this.state.Key}>
                   <i className="green ace-icon fa fa-home bigger-120" />
-                  工作台&nbsp;&nbsp;
+                  {this.state.Title}&nbsp;&nbsp;
                 </a>
               </li>
-              <li>
-                <a data-toggle="tab" href="#messages">
-                  Messages
-                  <i className="ace-icon fa fa-times" />
-                </a>
-              </li>
-              <Tab
-                Key={this.state.items[0].Key}
-                Title={this.state.items[0].Title}
-              />
             </ul>
           </div>
-          <div class="page-content">
-            <div className="tab-content" id="mainContent">
-              <div id="home" className="tab-pane fade in active">
-                <p>
-                  Raw denim you probably haven't heard of them jean shorts
-                  Austin.
-                </p>
-              </div>
-              <div id="messages" className="tab-pane fade">
-                <p>
-                  22222222222222Raw denim you probably haven't heard of them
-                  jean shorts Austin.
-                </p>
-              </div>
-              <Content
-                Uri={this.state.items[0].Uri}
-                Key={this.state.items[0].Key}
+           1111111111
+          <div className="tab-content" id="mainContent">
+            <div id={this.state.Key} className="tab-pane fade in active">
+              <iframe
+                id={"iframe" + this.state.Key}
+                src="/Greeter"
+                style={{ border: 0 }}
+                width="100%"
               />
             </div>
           </div>

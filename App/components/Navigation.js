@@ -1,16 +1,25 @@
 import React ,{Component} from 'react'
+import ReactDOM from 'react-dom';
+import Tab from './Tab';
 
 class Navigation extends Component{
+
+	constructor(props){
+		super(props);
+		this.openTab=this.props.openTab;
+	}
+
+	
+
     render(){
         return(
             <div id="sidebar" className="sidebar responsive ace-save-state">
                 <ul className="nav nav-list">
                     <li className="active">
-						<a href="index.html">
+						<a href="javascript:void(0)" onClick={this.openTab}  >
 							<i className="menu-icon fa fa-tachometer"></i>
 							<span className="menu-text"> Dashboard </span>
 						</a>
-
 						<b className="arrow"></b>
 					</li>
                     
@@ -38,7 +47,7 @@ class Navigation extends Component{
 
 								<ul className="submenu">
 									<li className="">
-										<a href="top-menu.html">
+									<a href="javascript:void(0)" >
 											<i className="menu-icon fa fa-caret-right"></i>
 											Top Menu
 										</a>
@@ -47,7 +56,7 @@ class Navigation extends Component{
 									</li>
 
 									<li className="">
-										<a href="two-menu-1.html">
+									<a href="javascript:void(0)" >
 											<i className="menu-icon fa fa-caret-right"></i>
 											Two Menus 1
 										</a>
@@ -56,7 +65,7 @@ class Navigation extends Component{
 									</li>
 
 									<li className="">
-										<a href="two-menu-2.html">
+									<a href="javascript:void(0)" >
 											<i className="menu-icon fa fa-caret-right"></i>
 											Two Menus 2
 										</a>
@@ -65,7 +74,7 @@ class Navigation extends Component{
 									</li>
 
 									<li className="">
-										<a href="mobile-menu-1.html">
+									<a href="javascript:void(0)" >
 											<i className="menu-icon fa fa-caret-right"></i>
 											Default Mobile Menu
 										</a>
@@ -74,7 +83,7 @@ class Navigation extends Component{
 									</li>
 
 									<li className="">
-										<a href="mobile-menu-2.html">
+									<a href="javascript:void(0)" >
 											<i className="menu-icon fa fa-caret-right"></i>
 											Mobile Menu 2
 										</a>
@@ -83,7 +92,7 @@ class Navigation extends Component{
 									</li>
 
 									<li className="">
-										<a href="mobile-menu-3.html">
+									<a href="javascript:void(0)" >
 											<i className="menu-icon fa fa-caret-right"></i>
 											Mobile Menu 3
 										</a>
@@ -94,7 +103,7 @@ class Navigation extends Component{
 							</li>
 
 							<li className="">
-								<a href="typography.html">
+							<a href="javascript:void(0)" >
 									<i className="menu-icon fa fa-caret-right"></i>
 									Typography
 								</a>
@@ -103,7 +112,7 @@ class Navigation extends Component{
 							</li>
 
 							<li className="">
-								<a href="elements.html">
+							<a href="javascript:void(0)"  >
 									<i className="menu-icon fa fa-caret-right"></i>
 									Elements
 								</a>
@@ -112,7 +121,7 @@ class Navigation extends Component{
 							</li>
 
 							<li className="">
-								<a href="buttons.html">
+							<a href="javascript:void(0)"  >
 									<i className="menu-icon fa fa-caret-right"></i>
 									Buttons &amp; Icons
 								</a>
@@ -121,7 +130,7 @@ class Navigation extends Component{
 							</li>
 
 							<li className="">
-								<a href="content-slider.html">
+							<a href="javascript:void(0)"  >
 									<i className="menu-icon fa fa-caret-right"></i>
 									Content Sliders
 								</a>
@@ -130,7 +139,7 @@ class Navigation extends Component{
 							</li>
 
 							<li className="">
-								<a href="treeview.html">
+							<a href="javascript:void(0)"  >
 									<i className="menu-icon fa fa-caret-right"></i>
 									Treeview
 								</a>
@@ -139,7 +148,7 @@ class Navigation extends Component{
 							</li>
 
 							<li className="">
-								<a href="jquery-ui.html">
+							<a href="javascript:void(0)"  >
 									<i className="menu-icon fa fa-caret-right"></i>
 									jQuery UI
 								</a>
@@ -148,7 +157,7 @@ class Navigation extends Component{
 							</li>
 
 							<li className="">
-								<a href="nestable-list.html">
+							<a href="javascript:void(0)"  >
 									<i className="menu-icon fa fa-caret-right"></i>
 									Nestable Lists
 								</a>
