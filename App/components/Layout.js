@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Head from "./Head";
 import Navigation from "./Navigation";
-import Container from "./Container";
 import $ from "jquery";
 
 // import  '../css/layout.css';
@@ -25,7 +24,7 @@ class Layout extends Component {
 
   openTab(options) {
 	var  Key="about";
-	var  Title="About";
+	var  Title="Abouaaaaaaaaaaat";
 	var  Uri="/Home/About";
     // this.setState({
     // 	Title:"About",
@@ -44,8 +43,10 @@ class Layout extends Component {
 	});
     var tab = `<li class="active">
 					<a data-toggle="tab" href="#${Key}">
-					<i class="green ace-icon fa fa-home bigger-120" />
-					${Title}&nbsp;&nbsp;
+          <i class="green ace-icon fa fa-home bigger-120" />
+          <span>${Title}</span>
+          <i class="ace-icon fa fa-expand" onClick="$.windowOpen(this)"></i>
+          <i class="ace-icon fa fa-refresh" onClick="$.tabReload(this)"></i>
 					<i class="ace-icon fa fa-times"  onClick="$.tabClose(this)"/>
 					</a>
 				</li>`;
@@ -56,7 +57,7 @@ class Layout extends Component {
 	var mainContent=$('#mainContent');
 	var tabContent =`<div id="${Key}" class="tab-pane fade in active">
 						<iframe
-						id="iframe"${Key}
+						id="iframe${Key}"
 						src="${Uri}"
 						style="border: 0"
 						width="100%"
@@ -91,7 +92,7 @@ class Layout extends Component {
                   <li className="active">
                     <a data-toggle="tab" href={"#" + this.state.Key}>
                       <i className="green ace-icon fa fa-home bigger-120" />
-                      {this.state.Title}&nbsp;&nbsp;
+                       <sapn>{this.state.Title}</sapn>
                     </a>
                   </li>
                 </ul>
