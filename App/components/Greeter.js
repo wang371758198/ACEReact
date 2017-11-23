@@ -30,14 +30,8 @@ class Greeter extends Component{
   }
 
   Add(){
-    if(!this.state.A)
-      alert("请输入A");
-    if(!this.state.B)
-      alert("请输入B");
-    
-    var number = (this.state.A*1) + (this.state.B*1)
-    this.setState({
-      C:number
+    fetch('/api/values/12').then((res)=>{
+      console.log(res.blob());
     })
   }
 

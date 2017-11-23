@@ -10,7 +10,18 @@ module.exports = {
   devServer: {
     contentBase: ".",
     historyApiFallback: true,
-    inline: true
+    inline: true,
+    proxy:{
+        '/api/*':{
+            target:{
+                host:"localhost",
+                protocol:"http:",
+                port:5000
+            },
+            changeOrigin: true,
+            secure:false
+        }
+    }
   },
   module:{
       rules:[{
