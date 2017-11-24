@@ -12,9 +12,9 @@ class Layout extends Component {
     this.state = {
       Key: "aaa",
       Title: "工作台",
-      Uri: "/Greeter"
+      Uri: "/System/Navigation/Index"
     };
-    this.openTab = this.openTab.bind(this);
+    //this.openTab = this.openTab.bind(this);
     this.tabClose = this.tabClose.bind(this);
   }
 
@@ -22,25 +22,28 @@ class Layout extends Component {
     alert("关闭");
   }
 
-  openTab(options) {
-	var  Key="about";
-	var  Title="Abouaaaaaaaaaaat";
-	var  Uri="/Home/About";
+  openTab1() {
+    var Key = "about";
+    var Title = "Abouaaaaaaaaaaat";
+    var Uri = "/Home/About";
     // this.setState({
     // 	Title:"About",
     // 	Key:"about",
     // 	Uri:"/Home/About"
     // });
-	var mainTabs = $("#mainTabs");
-	var isExist =false;
-	var existNode=null;
-	mainTabs.children().each(function(){
-		var key=$(this).find('a').attr('href').replace('#','');
-		if(key == Key){
-			isExist=true;
-			existNode=$(this);
-		}
-	});
+    var mainTabs = $("#mainTabs");
+    var isExist = false;
+    var existNode = null;
+    mainTabs.children().each(function() {
+      var key = $(this)
+        .find("a")
+        .attr("href")
+        .replace("#", "");
+      if (key == Key) {
+        isExist = true;
+        existNode = $(this);
+      }
+    });
     var tab = `<li class="active">
 					<a data-toggle="tab" href="#${Key}">
           <i class="green ace-icon fa fa-home bigger-120" />
@@ -53,9 +56,9 @@ class Layout extends Component {
     mainTabs.children().each(function() {
       $(this).removeClass("active");
     });
-	
-	var mainContent=$('#mainContent');
-	var tabContent =`<div id="${Key}" class="tab-pane fade in active">
+
+    var mainContent = $("#mainContent");
+    var tabContent = `<div id="${Key}" class="tab-pane fade in active">
 						<iframe
 						id="iframe${Key}"
 						src="${Uri}"
@@ -63,16 +66,16 @@ class Layout extends Component {
 						width="100%"
 						/>
 					</div>`;
-	mainContent.children().each(function(){
-		$(this).removeClass('in active');
-	});
-	if(!isExist){
-		mainTabs.append(tab);
-		mainContent.append(tabContent);
-	}else{
-		existNode.addClass("active");
-		$('#'+Key).addClass("in active");
-	}
+    mainContent.children().each(function() {
+      $(this).removeClass("in active");
+    });
+    if (!isExist) {
+      mainTabs.append(tab);
+      mainContent.append(tabContent);
+    } else {
+      existNode.addClass("active");
+      $("#" + Key).addClass("in active");
+    }
   }
 
   render() {
@@ -92,7 +95,7 @@ class Layout extends Component {
                   <li className="active">
                     <a data-toggle="tab" href={"#" + this.state.Key}>
                       <i className="green ace-icon fa fa-home bigger-120" />
-                       <sapn>{this.state.Title}</sapn>
+                      <sapn>{this.state.Title}</sapn>
                     </a>
                   </li>
                 </ul>

@@ -1,0 +1,16 @@
+#simple-table{
+    margin-bottom: 10px;
+}
+.dataTables_paging_simple_numbers{
+    text-align: left;
+}
+.pagination{
+    margin: 0px;
+    margin-left: 20px;
+}
+.pager_record{
+    padding: 6px 12px;
+    text-align:right;
+    margin-right: 10px;
+    color: #777;
+}
