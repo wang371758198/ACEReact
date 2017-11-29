@@ -4,246 +4,124 @@ import "../../www/css/grid.css";
 class Grid extends Component {
   constructor(props) {
     super(props);
+    this.state={
+      checkbox:true,
+      colums:[
+        {key:"Details",text:"Details", className:"detail-col", hidden:true,
+        formatter:function(){
+          return <label className="pos-rel">
+          <input type="checkbox" class="ace" />
+          <span className="lbl" />
+        </label>;
+        }
+        ,width:null,height:null},
+        {key:"Domain",text:"Domain",className:null, hidden:false,formatter:null,width:null,height:null},
+        {key:"Price",text:"Price",className:null, hidden:false,formatter:null,width:null,height:null},
+        {key:"Clicks",text:"Clicks",className:"hidden-480", hidden:false,formatter:null,width:null,height:null},
+        {key:"Update",text:"Update",className:null, hidden:false,formatter:null,width:null,height:null},
+        {key:"Status",text:"Status",className:"hidden-480", hidden:false,formatter:null,width:null,height:null}
+      ],
+      data:[
+        {Details:"Details",Domain:"Domain",Price:"Price",Clicks:"Clicks",Update:"Update",Status:"Status"},
+        {Details:"Details",Domain:"Domain",Price:"Price",Clicks:"Clicks",Update:"Update",Status:"Status"},
+        {Details:"Details",Domain:"Domain",Price:"Price",Clicks:"Clicks",Update:"Update",Status:"Status"},
+        {Details:"Details",Domain:"Domain",Price:"Price",Clicks:"Clicks",Update:"Update",Status:"Status"},
+        {Details:"Details",Domain:"Domain",Price:"Price",Clicks:"Clicks",Update:"Update",Status:"Status"},
+        {Details:"Details",Domain:"Domain",Price:"Price",Clicks:"Clicks",Update:"Update",Status:"Status"},
+        {Details:"Details",Domain:"Domain",Price:"Price",Clicks:"Clicks",Update:"Update",Status:"Status"},
+        {Details:"Details",Domain:"Domain",Price:"Price",Clicks:"Clicks",Update:"Update",Status:"Status"},
+        
+      ],
+      btn:[
+        {icon:"btn btn-xs btn-success",text:<i className="ace-icon fa fa-check bigger-120" />,click:(e)=>{
+          console.log('第一个按钮',e)
+        }},
+        {icon:"btn btn-xs btn-info",text:<i className="ace-icon fa fa-pencil bigger-120" />,click:(e)=>{
+          console.log("第二个按钮",e);
+        }}
+      ],
+      pagerNumber:8,
+      total:10
+    }
+  }
+
+  componentWillMount() {
+    
+  }
+
+  componentDidMount(){
+
   }
 
   render() {
-    return (
-      <div className="gridPanel">
-        <table id="simple-table" className="table  table-bordered table-hover">
-          <thead>
-            <tr>
-              <th className="center">
+    var thead=[];
+    if(this.state.checkbox){
+      thead.push(<th className="center">
                 <label className="pos-rel">
                   <input type="checkbox" class="ace" />
                   <span className="lbl" />
                 </label>
-              </th>
-              <th className="detail-col">Details</th>
-              <th>Domain</th>
-              <th>Price</th>
-              <th className="hidden-480">Clicks</th>
+              </th>);
+    }
+    this.state.colums.forEach((e)=>{
+      if(!e.hidden){
+      thead.push(<th className="detail-col" className={e.className} >{e.text}</th>);
+      }else{
+      thead.push(<th className="detail-col hidden">{e.text}</th>);
+      }
+    });
+    thead.push(<th/>);
 
-              <th>
-                <i className="ace-icon fa fa-clock-o bigger-110 hidden-480" />
-                Update
-              </th>
-              <th className="hidden-480">Status</th>
+   var tbody=[];
+   this.state.data.forEach((data,index)=>{
+     var tr=[];
+      if(this.state.checkbox){
+        tr.push(<td className="center">
+        <label className="pos-rel">
+          <input type="checkbox" class="ace" />
+          <span className="lbl" />
+        </label>
+      </td>);
+      }
+      this.state.colums.forEach((e)=>{
+        if(!e.hidden){
+          tr.push(  <td className="center">{data[e.key]} </td>);
+        }else{
+          tr.push(  <td className="center hidden">{data[e.key]} </td>);
+        }
+      })
 
-              <th />
+      var btns=[];
+      this.state.btn.forEach((e)=>{
+          btns.push(<button className={e.icon}  onClick={e.click.bind(this,data)} >{e.text}</button>);
+      });
+      tr.push(<td> <div className="hidden-sm hidden-xs btn-group">{btns}</div></td>)
+      tbody.push(<tr className={index%2==0?"odd":"even"}>{tr}</tr>);
+   });
+   
+   var pagination=[];
+   for(var i=1;i<=this.state.pagerNumber;i++){
+      pagination.push(<li className="paginate_button">
+                      <a href="javascript:void(0)">{i}</a>
+                    </li>);
+   }
+      pagination.push( <li className="paginate_button">
+                      <a href="javascript:void(0)">...</a>
+                    </li>);
+       pagination.push( <li className="paginate_button">
+                          <a href="javascript:void(0)">{this.state.total}</a>
+                        </li>);
+
+    return (
+      <div className="gridPanel">
+        <table id="simple-table" className="table table-striped table-bordered table-hover">
+          <thead>
+            <tr>
+            {thead}
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td className="center">
-                <label className="pos-rel">
-                  <input type="checkbox" class="ace" />
-                  <span className="lbl" />
-                </label>
-              </td>
-
-              <td className="center">
-                <div className="action-buttons">
-                  <a
-                    href="#"
-                    className="green bigger-140 show-details-btn"
-                    title="Show Details"
-                  >
-                    <i className="ace-icon fa fa-angle-double-down" />
-                    <span className="sr-only">Details</span>
-                  </a>
-                </div>
-              </td>
-
-              <td>
-                <a href="#">ace.com</a>
-              </td>
-              <td>$45</td>
-              <td className="hidden-480">3,330</td>
-              <td>Feb 12</td>
-
-              <td className="hidden-480">
-                <span className="label label-sm label-warning">Expiring</span>
-              </td>
-
-              <td>
-                <div className="hidden-sm hidden-xs btn-group">
-                  <button className="btn btn-xs btn-success">
-                    <i className="ace-icon fa fa-check bigger-120" />
-                  </button>
-
-                  <button className="btn btn-xs btn-info">
-                    <i className="ace-icon fa fa-pencil bigger-120" />
-                  </button>
-
-                  <button className="btn btn-xs btn-danger">
-                    <i className="ace-icon fa fa-trash-o bigger-120" />
-                  </button>
-
-                  <button className="btn btn-xs btn-warning">
-                    <i className="ace-icon fa fa-flag bigger-120" />
-                  </button>
-                </div>
-
-                <div className="hidden-md hidden-lg">
-                  <div className="inline pos-rel">
-                    <button
-                      className="btn btn-minier btn-primary dropdown-toggle"
-                      data-toggle="dropdown"
-                      data-position="auto"
-                    >
-                      <i className="ace-icon fa fa-cog icon-only bigger-110" />
-                    </button>
-
-                    <ul className="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
-                      <li>
-                        <a
-                          href="#"
-                          className="tooltip-info"
-                          data-rel="tooltip"
-                          title="View"
-                        >
-                          <span className="blue">
-                            <i class="ace-icon fa fa-search-plus bigger-120" />
-                          </span>
-                        </a>
-                      </li>
-
-                      <li>
-                        <a
-                          href="#"
-                          className="tooltip-success"
-                          data-rel="tooltip"
-                          title="Edit"
-                        >
-                          <span className="green">
-                            <i className="ace-icon fa fa-pencil-square-o bigger-120" />
-                          </span>
-                        </a>
-                      </li>
-
-                      <li>
-                        <a
-                          href="#"
-                          className="tooltip-error"
-                          data-rel="tooltip"
-                          title="Delete"
-                        >
-                          <span className="red">
-                            <i className="ace-icon fa fa-trash-o bigger-120" />
-                          </span>
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </td>
-            </tr>
-
-            <tr>
-              <td className="center">
-                <label className="pos-rel">
-                  <input type="checkbox" class="ace" />
-                  <span className="lbl" />
-                </label>
-              </td>
-
-              <td className="center">
-                <div className="action-buttons">
-                  <a
-                    href="#"
-                    className="green bigger-140 show-details-btn"
-                    title="Show Details"
-                  >
-                    <i className="ace-icon fa fa-angle-double-down" />
-                    <span className="sr-only">Details</span>
-                  </a>
-                </div>
-              </td>
-
-              <td>
-                <a href="#">ace.com</a>
-              </td>
-              <td>$45</td>
-              <td className="hidden-480">3,330</td>
-              <td>Feb 12</td>
-
-              <td className="hidden-480">
-                <span className="label label-sm label-warning">Expiring</span>
-              </td>
-
-              <td>
-                <div className="hidden-sm hidden-xs btn-group">
-                  <button className="btn btn-xs btn-success">
-                    <i className="ace-icon fa fa-check bigger-120" />
-                  </button>
-
-                  <button className="btn btn-xs btn-info">
-                    <i className="ace-icon fa fa-pencil bigger-120" />
-                  </button>
-
-                  <button className="btn btn-xs btn-danger">
-                    <i className="ace-icon fa fa-trash-o bigger-120" />
-                  </button>
-
-                  <button className="btn btn-xs btn-warning">
-                    <i className="ace-icon fa fa-flag bigger-120" />
-                  </button>
-                </div>
-
-                <div className="hidden-md hidden-lg">
-                  <div className="inline pos-rel">
-                    <button
-                      className="btn btn-minier btn-primary dropdown-toggle"
-                      data-toggle="dropdown"
-                      data-position="auto"
-                    >
-                      <i className="ace-icon fa fa-cog icon-only bigger-110" />
-                    </button>
-
-                    <ul className="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
-                      <li>
-                        <a
-                          href="#"
-                          className="tooltip-info"
-                          data-rel="tooltip"
-                          title="View"
-                        >
-                          <span className="blue">
-                            <i class="ace-icon fa fa-search-plus bigger-120" />
-                          </span>
-                        </a>
-                      </li>
-
-                      <li>
-                        <a
-                          href="#"
-                          className="tooltip-success"
-                          data-rel="tooltip"
-                          title="Edit"
-                        >
-                          <span className="green">
-                            <i className="ace-icon fa fa-pencil-square-o bigger-120" />
-                          </span>
-                        </a>
-                      </li>
-
-                      <li>
-                        <a
-                          href="#"
-                          className="tooltip-error"
-                          data-rel="tooltip"
-                          title="Delete"
-                        >
-                          <span className="red">
-                            <i className="ace-icon fa fa-trash-o bigger-120" />
-                          </span>
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </td>
-            </tr>
+           {tbody}
           </tbody>
         </table>
         <div className="row">
@@ -253,39 +131,7 @@ class Grid extends Component {
                 <li className="paginate_button previous disabled">
                   <a href="javascript:void(0)">上一页</a>
                 </li>
-                <li className="paginate_button active">
-                  <a href="javascript:void(0)">1</a>
-                </li>
-                <li className="paginate_button">
-                  <a href="javascript:void(0)">2</a>
-                </li>
-                <li className="paginate_button">
-                  <a href="javascript:void(0)">3</a>
-                </li>
-                <li className="paginate_button">
-                  <a href="javascript:void(0)">4</a>
-                </li>
-                <li className="paginate_button">
-                  <a href="javascript:void(0)">5</a>
-                </li>
-                <li className="paginate_button">
-                  <a href="javascript:void(0)">6</a>
-                </li>
-                <li className="paginate_button">
-                  <a href="javascript:void(0)">7</a>
-                </li>
-                <li className="paginate_button">
-                  <a href="javascript:void(0)">8</a>
-                </li>
-                <li className="paginate_button">
-                  <a href="javascript:void(0)">9</a>
-                </li>
-                <li className="paginate_button">
-                  <a href="javascript:void(0)">...</a>
-                </li>
-                <li className="paginate_button">
-                  <a href="javascript:void(0)">100</a>
-                </li>
+                {pagination}               
                 <li className="paginate_button previous disabled">
                   <a href="javascript:void(0)">下一页</a>
                 </li>
