@@ -14,3 +14,8 @@
     margin-right: 10px;
     color: #777;
 }
+.txtTd{
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+}

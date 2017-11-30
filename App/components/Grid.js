@@ -8,165 +8,13 @@ class Grid extends Component {
     this.state = {
       multiselect: false,
       checkbox: true,
+      url: props.url,
       primaryKey: "PKID",
-      colums: [
-        {
-          key: "PKID",
-          text: "PKID"
-        },
-        {
-          key: "Details",
-          text: "Details",
-          className: "detail-col",
-          hidden: false,
-          formatter: function(e) {
-            return (
-              <label className="pos-rel">
-                {'PKID:'+e.PKID +' Value:'+e.Details}
-              </label>
-            );
-          },
-          width: null,
-          height: null
-        },
-        {
-          key: "Domain",
-          text: "Domain",
-          className: null,
-          hidden: false,
-          formatter: null,
-          width: null,
-          height: null
-        },
-        {
-          key: "Price",
-          text: "Price",
-          className: null,
-          hidden: false,
-          formatter: null,
-          width: null,
-          height: null
-        },
-        {
-          key: "Clicks",
-          text: "Clicks",
-          className: "hidden-480",
-          hidden: false,
-          formatter: null,
-          width: null,
-          height: null
-        },
-        {
-          key: "Update",
-          text: "Update",
-          className: null,
-          hidden: false,
-          formatter: null,
-          width: null,
-          height: null
-        },
-        {
-          key: "Status",
-          text: "Status",
-          className: "hidden-480",
-          hidden: false,
-          formatter: null,
-          width: null,
-          height: null
-        }
-      ],
-      data: [
-        {
-          PKID: 1,
-          Details: "Details",
-          Domain: "Domain",
-          Price: "Price",
-          Clicks: "Clicks",
-          Update: "Update",
-          Status: "Status"
-        },
-        {
-          PKID: 2,
-          Details: "Details",
-          Domain: "Domain",
-          Price: "Price",
-          Clicks: "Clicks",
-          Update: "Update",
-          Status: "Status"
-        },
-        {
-          PKID: 3,
-          Details: "Details",
-          Domain: "Domain",
-          Price: "Price",
-          Clicks: "Clicks",
-          Update: "Update",
-          Status: "Status"
-        },
-        {
-          PKID: 4,
-          Details: "Details",
-          Domain: "Domain",
-          Price: "Price",
-          Clicks: "Clicks",
-          Update: "Update",
-          Status: "Status"
-        },
-        {
-          PKID: 5,
-          Details: "Details",
-          Domain: "Domain",
-          Price: "Price",
-          Clicks: "Clicks",
-          Update: "Update",
-          Status: "Status"
-        },
-        {
-          PKID: 6,
-          Details: "Details",
-          Domain: "Domain",
-          Price: "Price",
-          Clicks: "Clicks",
-          Update: "Update",
-          Status: "Status"
-        },
-        {
-          PKID: 7,
-          Details: "Details",
-          Domain: "Domain",
-          Price: "Price",
-          Clicks: "Clicks",
-          Update: "Update",
-          Status: "Status"
-        },
-        {
-          PKID: 8,
-          Details: "Details",
-          Domain: "Domain",
-          Price: "Price",
-          Clicks: "Clicks",
-          Update: "Update",
-          Status: "Status"
-        }
-      ],
-      btn: [
-        {
-          icon: "btn btn-xs btn-success",
-          text: <i className="ace-icon fa fa-check bigger-120" />,
-          click: e => {
-            console.log("第一个按钮", e);
-          }
-        },
-        {
-          icon: "btn btn-xs btn-info",
-          text: <i className="ace-icon fa fa-pencil bigger-120" />,
-          click: e => {
-            console.log("第二个按钮", e);
-          }
-        }
-      ],
-      rowNumber: 8,//一页渲染的行数
-      page:5,//分页工具栏显示的页数按钮
+      colums: props.colums,
+      data: [],
+      btns: props.btns,
+      rowNumber: 8, //一页渲染的行数
+      page: 5, //分页工具栏显示的页数按钮
       total: 10,
       event: {
         rowClick: function(e) {
@@ -209,12 +57,23 @@ class Grid extends Component {
 
   componentWillMount() {}
 
-  componentDidMount() {}
+  componentDidMount() {
+    fetch(this.state.url).then(res => {
+      if(res.status == 200){
+        res.json().then(json => {
+          console.log("json", json);
+          this.setState({
+            data: json
+          });
+        });
+      }
+    });
+  }
 
   initTableThead(thead) {
     if (this.state.checkbox) {
       thead.push(
-        <th className="center">
+        <th className="center" style={{ width: 20 }}>
           <label className="pos-rel">
             <input type="checkbox" class="ace" />
             <span className="lbl" />
@@ -225,7 +84,7 @@ class Grid extends Component {
     this.state.colums.forEach(e => {
       if (!e.hidden) {
         thead.push(
-          <th className="detail-col" className={e.className}>
+          <th className="detail-col" className={e.className} width={e.width}>
             {e.text}
           </th>
         );
@@ -237,6 +96,17 @@ class Grid extends Component {
   }
 
   initTableTbody(tbody) {
+    if (this.state.data.length <= 0) {
+      var colspanNumber=2;
+      this.state.colums.forEach(function(e){
+        if(!e.hidden){
+          colspanNumber++;
+        }
+      });
+     
+      tbody.push(<tr>  <td className="center" colSpan={colspanNumber}  >没有记录!</td></tr>)
+      return;
+    }
     this.state.data.forEach((data, index) => {
       var tr = [];
       if (this.state.checkbox) {
@@ -255,25 +125,28 @@ class Grid extends Component {
       }
       this.state.colums.forEach(e => {
         if (!e.hidden) {
-          if(!e.formatter){
-            tr.push(<td className="center">{data[e.key]} </td>);
-          }else{
+          if (!e.formatter) {
+            tr.push(
+              <td className={"center " + e.className}>{data[e.key]} </td>
+            );
+          } else {
             tr.push(<td className="center">{e.formatter(data)}</td>);
           }
-         
         } else {
           tr.push(<td className="center hidden">{data[e.key]} </td>);
         }
       });
 
       var btns = [];
-      this.state.btn.forEach(e => {
-        btns.push(
-          <button className={e.icon} onClick={e.click.bind(this, data)}>
-            {e.text}
-          </button>
-        );
-      });
+      if (this.state.btns) {
+        this.state.btns.forEach(e => {
+          btns.push(
+            <button className={e.icon} onClick={e.click.bind(this, data)}>
+              {e.text}
+            </button>
+          );
+        });
+      }
       tr.push(
         <td>
           {" "}

@@ -44,7 +44,7 @@
       ],
 
       //操作列按钮的定义
-      btn: [
+      btns: [
         {
           icon: "btn btn-xs btn-success",
           text: <i className="ace-icon fa fa-check bigger-120" />,
