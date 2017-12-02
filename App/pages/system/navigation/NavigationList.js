@@ -79,7 +79,19 @@ class NavigationList extends Component {
   }
 
   add(e){
-    alert("添加")
+    layer.open({
+      title:"标 题",
+      area:['420px','400px'],
+      type: 2,
+      content:'/System/Navigation/Form',
+      btn:['确 定','取 消'],
+      yes:function(){
+
+      },
+      cancel:function(index,layero){
+        layer.close(index);
+      }
+    });
   }
 
   edit(e){
